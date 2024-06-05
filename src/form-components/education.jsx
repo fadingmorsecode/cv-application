@@ -4,17 +4,52 @@ function EducationInput({ type, id }) {
   return <input type={type} id={id} />;
 }
 
+function EditButton({ onClick }) {
+  return <button onClick={onClick}>Edit</button>;
+}
+
+function SaveButton({ onClick }) {
+  return <button onClick={onClick}>Save</button>;
+}
+
 function CreateEducationComponent() {
+  const [editStatus, setEditStatus] = useState(false);
+
+  function EditButtonHandler() {
+    setEditStatus(true);
+  }
+
+  function SaveButtonHandler() {
+    setEditStatus(false);
+  }
+
   return (
     <form>
       <label htmlFor='school-name'>School Name:</label>
-      <EducationInput type={'text'} id={'school-name'} />
+      {editStatus ? (
+        <EducationInput type={'text'} id={'school-name'} />
+      ) : (
+        <p></p>
+      )}
       <label htmlFor='degree'>Degree:</label>
-      <EducationInput type={'text'} id={'degree'} />
+      {editStatus ? <EducationInput type={'text'} id={'degree'} /> : <p></p>}
       <label htmlFor='school-start'>Start Date:</label>
-      <EducationInput type={'date'} id={'school-start'} />
+      {editStatus ? (
+        <EducationInput type={'date'} id={'school-start'} />
+      ) : (
+        <p></p>
+      )}
       <label htmlFor='school-end'>End Date:</label>
-      <EducationInput type={'date'} id={'school-end'} />
+      {editStatus ? (
+        <EducationInput type={'date'} id={'school-end'} />
+      ) : (
+        <p></p>
+      )}
+      {editStatus ? (
+        <SaveButton onClick={SaveButtonHandler} />
+      ) : (
+        <EditButton onClick={EditButtonHandler} />
+      )}
     </form>
   );
 }

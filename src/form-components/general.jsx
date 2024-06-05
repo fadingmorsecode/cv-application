@@ -38,8 +38,6 @@ export default function GeneralInfo() {
     setEditStatus(false);
   }
 
-  // refactor these to pass handler functions as a prop
-
   return (
     <form>
       <legend>General Information</legend>
