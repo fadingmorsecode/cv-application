@@ -35,6 +35,14 @@ function CreateEducationComponent() {
     setDegreeValue(e.target.value);
   }
 
+  function handleDateStartChange(e) {
+    setDateStartValue(e.target.value);
+  }
+
+  function handleDateEndChange(e) {
+    setDateEndValue(e.target.value);
+  }
+
   return (
     <form>
       <label htmlFor='school-name'>School Name:</label>
@@ -61,15 +69,25 @@ function CreateEducationComponent() {
       )}
       <label htmlFor='school-start'>Start Date:</label>
       {editStatus ? (
-        <EducationInput type={'date'} id={'school-start'} />
+        <EducationInput
+          type={'date'}
+          id={'school-start'}
+          value={dateStartValue}
+          onChange={handleDateStartChange}
+        />
       ) : (
-        <p></p>
+        <p>{dateStartValue}</p>
       )}
       <label htmlFor='school-end'>End Date:</label>
       {editStatus ? (
-        <EducationInput type={'date'} id={'school-end'} />
+        <EducationInput
+          type={'date'}
+          id={'school-end'}
+          value={dateEndValue}
+          onChange={handleDateEndChange}
+        />
       ) : (
-        <p></p>
+        <p>{dateEndValue}</p>
       )}
       {editStatus ? (
         <SaveButton onClick={SaveButtonHandler} />
