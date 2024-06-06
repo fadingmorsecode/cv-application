@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-function EducationInput({ type, id }) {
-  return <input type={type} id={id} />;
+function EducationInput({ type, id, value, onChange }) {
+  return <input type={type} id={id} value={value} onChange={onChange} />;
 }
 
 function EditButton({ onClick }) {
@@ -14,6 +14,10 @@ function SaveButton({ onClick }) {
 
 function CreateEducationComponent() {
   const [editStatus, setEditStatus] = useState(false);
+  const [schoolValue, setSchoolValue] = useState('');
+  const [degreeValue, setDegreeValue] = useState('');
+  const [dateStartValue, setDateStartValue] = useState('');
+  const [dateEndValue, setDateEndValue] = useState('');
 
   function EditButtonHandler() {
     setEditStatus(true);
@@ -23,16 +27,38 @@ function CreateEducationComponent() {
     setEditStatus(false);
   }
 
+  function handleSchoolChange(e) {
+    setSchoolValue(e.target.value);
+  }
+
+  function handleDegreeChange(e) {
+    setDegreeValue(e.target.value);
+  }
+
   return (
     <form>
       <label htmlFor='school-name'>School Name:</label>
       {editStatus ? (
-        <EducationInput type={'text'} id={'school-name'} />
+        <EducationInput
+          type={'text'}
+          id={'school-name'}
+          value={schoolValue}
+          onChange={handleSchoolChange}
+        />
       ) : (
-        <p></p>
+        <p>{schoolValue}</p>
       )}
       <label htmlFor='degree'>Degree:</label>
-      {editStatus ? <EducationInput type={'text'} id={'degree'} /> : <p></p>}
+      {editStatus ? (
+        <EducationInput
+          type={'text'}
+          id={'degree'}
+          value={degreeValue}
+          onChange={handleDegreeChange}
+        />
+      ) : (
+        <p>{degreeValue}</p>
+      )}
       <label htmlFor='school-start'>Start Date:</label>
       {editStatus ? (
         <EducationInput type={'date'} id={'school-start'} />
@@ -71,10 +97,10 @@ export default function EducationalInfo() {
   ));
 
   return (
-    <form>
-      <legend>Educational Info</legend>
+    <>
+      <p>Educational Info</p>
       {renderComponents}
       <CreateEducationButton onClick={handleCreateEducationButton} />
-    </form>
+    </>
   );
 }
