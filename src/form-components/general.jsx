@@ -40,7 +40,7 @@ export default function GeneralInfo() {
 
   return (
     <form>
-      <legend>General Information</legend>
+      <h1>General Information</h1>
       <div className='name-container'>
         <label htmlFor='gen-name'>Name:</label>
         {editStatus ? (

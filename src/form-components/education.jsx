@@ -1,8 +1,16 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-function EducationInput({ type, id, value, onChange }) {
-  return <input type={type} id={id} value={value} onChange={onChange} />;
+function EducationInput({ type, id, value, onChange, checked }) {
+  return (
+    <input
+      type={type}
+      id={id}
+      value={value}
+      onChange={onChange}
+      checked={checked}
+    />
+  );
 }
 
 function EditButton({ onClick }) {
@@ -23,6 +31,7 @@ function CreateEducationComponent({ id, onClick }) {
   const [degreeValue, setDegreeValue] = useState('');
   const [dateStartValue, setDateStartValue] = useState('');
   const [dateEndValue, setDateEndValue] = useState('');
+  const [currentAttendance, setCurrentAttendance] = useState(false);
 
   function EditButtonHandler() {
     setEditStatus(true);
@@ -46,6 +55,11 @@ function CreateEducationComponent({ id, onClick }) {
 
   function handleDateEndChange(e) {
     setDateEndValue(e.target.value);
+  }
+
+  function currentAttendanceHandler() {
+    setCurrentAttendance(!currentAttendance);
+    setDateEndValue('');
   }
 
   return (
@@ -85,14 +99,25 @@ function CreateEducationComponent({ id, onClick }) {
       )}
       <label htmlFor='school-end'>End Date:</label>
       {editStatus ? (
-        <EducationInput
-          type={'date'}
-          id={'school-end'}
-          value={dateEndValue}
-          onChange={handleDateEndChange}
-        />
+        <>
+          {!currentAttendance && (
+            <EducationInput
+              type={'date'}
+              id={'school-end'}
+              value={dateEndValue}
+              onChange={handleDateEndChange}
+            />
+          )}
+          <label htmlFor='current-education'>Currently Attend</label>
+          <EducationInput
+            type={'checkbox'}
+            id={'current-education'}
+            onChange={currentAttendanceHandler}
+            checked={currentAttendance}
+          />
+        </>
       ) : (
-        <p>{dateEndValue}</p>
+        <p>{currentAttendance ? 'Present' : dateEndValue}</p>
       )}
       {editStatus ? (
         <SaveButton onClick={SaveButtonHandler} />
@@ -140,9 +165,25 @@ export default function EducationalInfo() {
 
   return (
     <>
-      <p>Educational Info</p>
+      <h2>Educational Info</h2>
       {renderComponents}
       <CreateEducationButton onClick={handleCreateEducationButton} />
     </>
   );
 }
+
+// {editStatus ? (
+//         <>
+//           {currentAttendance ? (
+//           <EducationInput
+//             type={'date'}
+//             id={'school-end'}
+//             value={dateEndValue}
+//             onChange={handleDateEndChange}
+//           />
+//            ) :
+//           <label htmlFor='current-education'>Currently Attend</label>
+//           <EducationInput type={'checkbox'} id={'current-education'} />
+//       ) : (
+//         <p>{dateEndValue}</p>
+//       )}
