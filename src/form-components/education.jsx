@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 function EducationInput({ type, id, value, onChange }) {
   return <input type={type} id={id} value={value} onChange={onChange} />;
@@ -12,7 +13,11 @@ function SaveButton({ onClick }) {
   return <button onClick={onClick}>Save</button>;
 }
 
-function CreateEducationComponent() {
+function DeleteButton({ onClick }) {
+  return <button onClick={onClick}>Delete</button>;
+}
+
+function CreateEducationComponent({ id, onClick }) {
   const [editStatus, setEditStatus] = useState(false);
   const [schoolValue, setSchoolValue] = useState('');
   const [degreeValue, setDegreeValue] = useState('');
@@ -94,6 +99,12 @@ function CreateEducationComponent() {
       ) : (
         <EditButton onClick={EditButtonHandler} />
       )}
+      <DeleteButton
+        onClick={(e) => {
+          e.preventDefault();
+          onClick(id);
+        }}
+      />
     </form>
   );
 }
@@ -107,11 +118,24 @@ export default function EducationalInfo() {
 
   function handleCreateEducationButton(e) {
     e.preventDefault();
-    setComponents([...components, { id: components.length + 1 }]);
+    setComponents([...components, { id: uuidv4() }]);
+  }
+
+  function handleDeleteButton(id) {
+    console.log(id);
+    const oldComponents = [...components];
+    const newComponents = oldComponents.filter(
+      (component) => component.id !== id
+    );
+    setComponents(newComponents);
   }
 
   const renderComponents = components.map((component) => (
-    <CreateEducationComponent key={component.id} />
+    <CreateEducationComponent
+      key={component.id}
+      id={component.id}
+      onClick={handleDeleteButton}
+    />
   ));
 
   return (
