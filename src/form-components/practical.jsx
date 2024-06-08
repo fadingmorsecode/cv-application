@@ -13,7 +13,11 @@ function SaveButton({ onClick }) {
   return <button onClick={onClick}>Save</button>;
 }
 
-function CreatePracticalComponent() {
+function DeleteButton({ onClick }) {
+  return <button onClick={onClick}>Delete</button>;
+}
+
+function CreatePracticalComponent({ id, componentDeletion }) {
   const [editState, setEditState] = useState(false);
   const [companyValue, setCompanyValue] = useState('');
   const [positionValue, setPositionValue] = useState('');
@@ -111,6 +115,12 @@ function CreatePracticalComponent() {
       ) : (
         <SaveButton onClick={handleSaveBtn} />
       )}
+      <DeleteButton
+        onClick={(e) => {
+          e.preventDefault();
+          componentDeletion(id);
+        }}
+      />
     </form>
   );
 }
@@ -122,8 +132,22 @@ function CreatePracticalButton({ onClick }) {
 export default function PracticalInfo() {
   const [components, setComponents] = useState([]);
 
+  function deleteComponent(id) {
+    const oldComponents = [...components];
+    const newComponents = oldComponents.filter(
+      (component) => component.id !== id
+    );
+    setComponents(newComponents);
+  }
+
   const renderComponents = components.map((component) => {
-    return <CreatePracticalComponent key={component.id} id={component.id} />;
+    return (
+      <CreatePracticalComponent
+        key={component.id}
+        id={component.id}
+        componentDeletion={deleteComponent}
+      />
+    );
   });
 
   return (
