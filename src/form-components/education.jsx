@@ -29,8 +29,8 @@ function CreateEducationComponent({ id, onClick }) {
   const [editStatus, setEditStatus] = useState(false);
   const [schoolValue, setSchoolValue] = useState('');
   const [degreeValue, setDegreeValue] = useState('');
-  const [dateStartValue, setDateStartValue] = useState('');
-  const [dateEndValue, setDateEndValue] = useState('');
+  const [schoolDateStartValue, setSchoolDateStartValue] = useState('');
+  const [schoolDateEndValue, setSchoolDateEndValue] = useState('');
   const [currentAttendance, setCurrentAttendance] = useState(false);
 
   function EditButtonHandler() {
@@ -50,16 +50,16 @@ function CreateEducationComponent({ id, onClick }) {
   }
 
   function handleDateStartChange(e) {
-    setDateStartValue(e.target.value);
+    setSchoolDateStartValue(e.target.value);
   }
 
   function handleDateEndChange(e) {
-    setDateEndValue(e.target.value);
+    setSchoolDateEndValue(e.target.value);
   }
 
   function currentAttendanceHandler() {
     setCurrentAttendance(!currentAttendance);
-    setDateEndValue('');
+    setSchoolDateEndValue('');
   }
 
   return (
@@ -91,11 +91,11 @@ function CreateEducationComponent({ id, onClick }) {
         <EducationInput
           type={'date'}
           id={'school-start'}
-          value={dateStartValue}
+          value={schoolDateStartValue}
           onChange={handleDateStartChange}
         />
       ) : (
-        <p>{dateStartValue}</p>
+        <p>{schoolDateStartValue}</p>
       )}
       <label htmlFor='school-end'>End Date:</label>
       {editStatus ? (
@@ -104,7 +104,7 @@ function CreateEducationComponent({ id, onClick }) {
             <EducationInput
               type={'date'}
               id={'school-end'}
-              value={dateEndValue}
+              value={schoolDateEndValue}
               onChange={handleDateEndChange}
             />
           )}
@@ -117,7 +117,7 @@ function CreateEducationComponent({ id, onClick }) {
           />
         </>
       ) : (
-        <p>{currentAttendance ? 'Present' : dateEndValue}</p>
+        <p>{currentAttendance ? 'Present' : schoolDateEndValue}</p>
       )}
       {editStatus ? (
         <SaveButton onClick={SaveButtonHandler} />
