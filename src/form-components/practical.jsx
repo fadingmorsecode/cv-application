@@ -1,8 +1,16 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-function CreatePracticalInput({ type, id, value, onChange }) {
-  return <input type={type} id={id} value={value} onChange={onChange} />;
+function CreatePracticalInput({ type, id, value, onChange, checked }) {
+  return (
+    <input
+      type={type}
+      id={id}
+      value={value}
+      checked={checked}
+      onChange={onChange}
+    />
+  );
 }
 
 function EditButton({ onClick }) {
@@ -24,6 +32,7 @@ function CreatePracticalComponent({ id, componentDeletion }) {
   const [dutiesValue, setDutiesValue] = useState('');
   const [startValue, setStartValue] = useState('');
   const [endValue, setEndValue] = useState('');
+  const [currentPractical, setCurrentPractical] = useState(false);
 
   function handleEditBtn() {
     setEditState(true);
@@ -51,6 +60,13 @@ function CreatePracticalComponent({ id, componentDeletion }) {
 
   function handleEndChange(e) {
     setEndValue(e.target.value);
+  }
+
+  function handleMarkChange() {
+    if (currentPractical) {
+      setEndValue('');
+    }
+    setCurrentPractical(!currentPractical);
   }
 
   return (
@@ -101,14 +117,25 @@ function CreatePracticalComponent({ id, componentDeletion }) {
       )}
       <label>End Date:</label>
       {!editState ? (
-        <p>{endValue}</p>
+        <p>{currentPractical ? 'Present' : endValue}</p>
       ) : (
-        <CreatePracticalInput
-          type={'date'}
-          id={'end-date'}
-          value={endValue}
-          onChange={handleEndChange}
-        />
+        <>
+          {!currentPractical && (
+            <CreatePracticalInput
+              type={'date'}
+              id={'end-date'}
+              value={endValue}
+              onChange={handleEndChange}
+            />
+          )}
+          <label htmlFor='practical-checkbox'>Currently Work Here</label>
+          <CreatePracticalInput
+            type={'checkbox'}
+            id={'practical-checkbox'}
+            checked={currentPractical}
+            onChange={handleMarkChange}
+          />
+        </>
       )}
       {!editState ? (
         <EditButton onClick={handleEditBtn} />
