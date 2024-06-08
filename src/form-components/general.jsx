@@ -12,11 +12,19 @@ function SaveButton({ onClick }) {
   return <button onClick={onClick}>Save</button>;
 }
 
-export default function GeneralInfo() {
+export default function GeneralInfo({ handleGeneralData }) {
   const [editStatus, setEditStatus] = useState(false);
   const [nameValue, setNameValue] = useState('');
   const [emailValue, setEmailValue] = useState('');
   const [phoneValue, setPhoneValue] = useState('');
+
+  function getData() {
+    return {
+      name: nameValue,
+      email: emailValue,
+      phone: phoneValue,
+    };
+  }
 
   function handleNameChange(e) {
     setNameValue(e.target.value);
@@ -36,6 +44,7 @@ export default function GeneralInfo() {
 
   function SaveButtonHandler() {
     setEditStatus(false);
+    handleGeneralData(getData());
   }
 
   return (
