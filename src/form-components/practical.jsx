@@ -30,8 +30,8 @@ function CreatePracticalComponent({ id, componentDeletion }) {
   const [companyValue, setCompanyValue] = useState('');
   const [positionValue, setPositionValue] = useState('');
   const [dutiesValue, setDutiesValue] = useState('');
-  const [startValue, setStartValue] = useState('');
-  const [endValue, setEndValue] = useState('');
+  const [practicalStartValue, setPracticalStartValue] = useState('');
+  const [practicalEndValue, setPracticalEndValue] = useState('');
   const [currentPractical, setCurrentPractical] = useState(false);
 
   function handleEditBtn() {
@@ -55,16 +55,16 @@ function CreatePracticalComponent({ id, componentDeletion }) {
   }
 
   function handleStartChange(e) {
-    setStartValue(e.target.value);
+    setPracticalStartValue(e.target.value);
   }
 
   function handleEndChange(e) {
-    setEndValue(e.target.value);
+    setPracticalEndValue(e.target.value);
   }
 
   function handleMarkChange() {
     if (currentPractical) {
-      setEndValue('');
+      setPracticalEndValue('');
     }
     setCurrentPractical(!currentPractical);
   }
@@ -106,25 +106,25 @@ function CreatePracticalComponent({ id, componentDeletion }) {
       )}
       <label>Start Date:</label>
       {!editState ? (
-        <p>{startValue}</p>
+        <p>{practicalStartValue}</p>
       ) : (
         <CreatePracticalInput
           type={'date'}
           id={'start-date'}
-          value={startValue}
+          value={practicalStartValue}
           onChange={handleStartChange}
         />
       )}
       <label>End Date:</label>
       {!editState ? (
-        <p>{currentPractical ? 'Present' : endValue}</p>
+        <p>{currentPractical ? 'Present' : practicalEndValue}</p>
       ) : (
         <>
           {!currentPractical && (
             <CreatePracticalInput
               type={'date'}
               id={'end-date'}
-              value={endValue}
+              value={practicalEndValue}
               onChange={handleEndChange}
             />
           )}
