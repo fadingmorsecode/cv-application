@@ -152,7 +152,10 @@ export default function EducationalInfo({ handleEducationalData }) {
 
   function handleCreateEducationButton(e) {
     e.preventDefault();
-    setComponents([...components, { id: uuidv4() }]);
+    setComponents([
+      ...components,
+      { id: uuidv4(), school: '', degree: '', start: '', end: '', current: '' },
+    ]);
   }
 
   function updateComponent(
