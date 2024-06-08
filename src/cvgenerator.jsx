@@ -29,14 +29,6 @@ export default function FormBuilder() {
     setSubmitValue(true);
   }
 
-  function getAllData() {
-    return {
-      generalData: generalData,
-      educationalData: educationalData,
-      practicalData: practicalData,
-    };
-  }
-
   return !submitValue ? (
     <>
       <GeneralInfo handleGeneralData={handleGeneralData} />
@@ -45,6 +37,10 @@ export default function FormBuilder() {
       <button onClick={handleSubmitClick}>Submit</button>
     </>
   ) : (
-    <RenderCV getAllData={getAllData} />
+    <RenderCV
+      generalData={generalData}
+      educationalData={educationalData}
+      practicalData={practicalData}
+    />
   );
 }
