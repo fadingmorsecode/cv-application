@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-function CreatePracticalInput({ type, id }) {
-  return <input type={type} id={id} />;
+function CreatePracticalInput({ type, id, value, onChange }) {
+  return <input type={type} id={id} value={value} onChange={onChange} />;
 }
 
 function EditButton({ onClick }) {
@@ -15,6 +15,11 @@ function SaveButton({ onClick }) {
 
 function CreatePracticalComponent() {
   const [editState, setEditState] = useState(false);
+  const [companyValue, setCompanyValue] = useState('');
+  const [positionValue, setPositionValue] = useState('');
+  const [dutiesValue, setDutiesValue] = useState('');
+  const [startValue, setStartValue] = useState('');
+  const [endValue, setEndValue] = useState('');
 
   function handleEditBtn() {
     setEditState(true);
@@ -24,37 +29,82 @@ function CreatePracticalComponent() {
     setEditState(false);
   }
 
+  function handleCompanyChange(e) {
+    setCompanyValue(e.target.value);
+  }
+
+  function handlePositionChange(e) {
+    setPositionValue(e.target.value);
+  }
+
+  function handleDutiesChange(e) {
+    setDutiesValue(e.target.value);
+  }
+
+  function handleStartChange(e) {
+    setStartValue(e.target.value);
+  }
+
+  function handleEndChange(e) {
+    setEndValue(e.target.value);
+  }
+
   return (
     <form>
       <label>Company Title:</label>
       {!editState ? (
-        <p></p>
+        <p>{companyValue}</p>
       ) : (
-        <CreatePracticalInput type={'text'} id={'company-title'} />
+        <CreatePracticalInput
+          type={'text'}
+          id={'company-title'}
+          value={companyValue}
+          onChange={handleCompanyChange}
+        />
       )}
       <label>Position Title:</label>
       {!editState ? (
-        <p></p>
+        <p>{positionValue}</p>
       ) : (
-        <CreatePracticalInput type={'text'} id={'position-title'} />
+        <CreatePracticalInput
+          type={'text'}
+          id={'position-title'}
+          value={positionValue}
+          onChange={handlePositionChange}
+        />
       )}
       <label>Main Duties:</label>
       {!editState ? (
-        <p></p>
+        <p>{dutiesValue}</p>
       ) : (
-        <CreatePracticalInput type={'text'} id={'main-duties'} />
+        <CreatePracticalInput
+          type={'text'}
+          id={'main-duties'}
+          value={dutiesValue}
+          onChange={handleDutiesChange}
+        />
       )}
       <label>Start Date:</label>
       {!editState ? (
-        <p></p>
+        <p>{startValue}</p>
       ) : (
-        <CreatePracticalInput type={'date'} id={'start-date'} />
+        <CreatePracticalInput
+          type={'date'}
+          id={'start-date'}
+          value={startValue}
+          onChange={handleStartChange}
+        />
       )}
       <label>End Date:</label>
       {!editState ? (
-        <p></p>
+        <p>{endValue}</p>
       ) : (
-        <CreatePracticalInput type={'date'} id={'end-date'} />
+        <CreatePracticalInput
+          type={'date'}
+          id={'end-date'}
+          value={endValue}
+          onChange={handleEndChange}
+        />
       )}
       {!editState ? (
         <EditButton onClick={handleEditBtn} />
