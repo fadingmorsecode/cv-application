@@ -7,10 +7,16 @@ import { useState } from 'react';
 export default function FormBuilder() {
   const [submitValue, setSubmitValue] = useState(false);
 
-  const [generalData, setGeneralData] = useState([]);
+  const [generalData, setGeneralData] = useState({});
+
+  const [practicalData, setPracticalData] = useState([]);
 
   function handleGeneralData(data) {
     setGeneralData(data);
+  }
+
+  function handlePracticalData(data) {
+    setPracticalData(data);
   }
 
   function handleSubmitClick() {
@@ -18,14 +24,14 @@ export default function FormBuilder() {
   }
 
   function getAllData() {
-    return { generalData: generalData };
+    return { generalData: generalData, practicalData: practicalData };
   }
 
   return !submitValue ? (
     <>
       <GeneralInfo handleGeneralData={handleGeneralData} />
       <EducationalInfo />
-      <PracticalInfo />
+      <PracticalInfo handlePracticalData={handlePracticalData} />
       <button onClick={handleSubmitClick}>Submit</button>
     </>
   ) : (

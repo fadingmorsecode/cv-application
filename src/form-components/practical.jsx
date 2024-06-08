@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 function CreatePracticalInput({ type, id, value, onChange, checked }) {
@@ -25,7 +25,7 @@ function DeleteButton({ onClick }) {
   return <button onClick={onClick}>Delete</button>;
 }
 
-function CreatePracticalComponent({ id, componentDeletion }) {
+function CreatePracticalComponent({ id, componentDeletion, updateComponent }) {
   const [editState, setEditState] = useState(false);
   const [companyValue, setCompanyValue] = useState('');
   const [positionValue, setPositionValue] = useState('');
@@ -40,6 +40,15 @@ function CreatePracticalComponent({ id, componentDeletion }) {
 
   function handleSaveBtn() {
     setEditState(false);
+    updateComponent(
+      id,
+      companyValue,
+      positionValue,
+      dutiesValue,
+      practicalStartValue,
+      practicalEndValue,
+      currentPractical
+    );
   }
 
   function handleCompanyChange(e) {
@@ -156,8 +165,39 @@ function CreatePracticalButton({ onClick }) {
   return <button onClick={onClick}>Add Experience</button>;
 }
 
-export default function PracticalInfo() {
+export default function PracticalInfo({ handlePracticalData }) {
   const [components, setComponents] = useState([]);
+
+  function updateComponent(
+    id,
+    companyVal,
+    positionVal,
+    dutiesVal,
+    pracDateStartVal,
+    pracDateEndVal,
+    currentPractical
+  ) {
+    setComponents(
+      components.map((component) => {
+        if (component.id === id) {
+          return {
+            ...component,
+            company: companyVal,
+            position: positionVal,
+            duties: dutiesVal,
+            start: pracDateStartVal,
+            end: pracDateEndVal,
+            current: currentPractical,
+          };
+        }
+        return component;
+      })
+    );
+  }
+
+  useEffect(() => {
+    handlePracticalData(components);
+  }, [components, handlePracticalData]);
 
   function deleteComponent(id) {
     const oldComponents = [...components];
@@ -173,6 +213,7 @@ export default function PracticalInfo() {
         key={component.id}
         id={component.id}
         componentDeletion={deleteComponent}
+        updateComponent={updateComponent}
       />
     );
   });
@@ -184,7 +225,18 @@ export default function PracticalInfo() {
       <CreatePracticalButton
         onClick={(e) => {
           e.preventDefault();
-          setComponents([...components, { id: uuidv4() }]);
+          setComponents([
+            ...components,
+            {
+              id: uuidv4(),
+              company: '',
+              position: '',
+              duties: '',
+              start: '',
+              end: '',
+              current: '',
+            },
+          ]);
         }}
       />
     </>
