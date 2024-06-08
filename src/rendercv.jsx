@@ -6,10 +6,12 @@ export default function RenderCV({
   const renderEducational = educationalData.map((d) => {
     return (
       <div key={d.id}>
-        <p>{d.school}</p>
         <p>{d.degree}</p>
-        <p>{d.start}</p>
-        <p>{d.current ? 'Present' : d.end}</p>
+        <p>{d.school}</p>
+        <div className='date-container'>
+          <p>{d.start}</p>
+          <p>{d.current ? 'Present' : d.end}</p>
+        </div>
       </div>
     );
   });
@@ -17,11 +19,13 @@ export default function RenderCV({
   const renderPractical = practicalData.map((d) => {
     return (
       <div key={d.id}>
-        <p>{d.company}</p>
         <p>{d.position}</p>
+        <p>{d.company}</p>
+        <div className='date-container'>
+          <p>{d.start}</p>
+          <p>{d.current ? 'Present' : d.end}</p>
+        </div>
         <p>{d.duties}</p>
-        <p>{d.start}</p>
-        <p>{d.current ? 'Present' : d.end}</p>
       </div>
     );
   });
@@ -29,12 +33,16 @@ export default function RenderCV({
   return (
     <>
       <div>
-        <p>{generalData.name}</p>
-        <p>{generalData.email}</p>
+        <h1>{generalData.name}</h1>
         <p>{generalData.phone}</p>
+        <p>{generalData.email}</p>
       </div>
-      {renderEducational}
+      <h2>Experience</h2>
+      <div className='decorative-blue-line'></div>
       {renderPractical}
+      <h2>Education</h2>
+      <div className='decorative-blue-line'></div>
+      {renderEducational}
     </>
   );
 }
