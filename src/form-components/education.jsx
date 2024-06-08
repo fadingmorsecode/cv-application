@@ -165,25 +165,9 @@ export default function EducationalInfo() {
 
   return (
     <>
-      <h2>Educational Info</h2>
+      <h2>Educational Information</h2>
       {renderComponents}
       <CreateEducationButton onClick={handleCreateEducationButton} />
     </>
   );
 }
-
-// {editStatus ? (
-//         <>
-//           {currentAttendance ? (
-//           <EducationInput
-//             type={'date'}
-//             id={'school-end'}
-//             value={dateEndValue}
-//             onChange={handleDateEndChange}
-//           />
-//            ) :
-//           <label htmlFor='current-education'>Currently Attend</label>
-//           <EducationInput type={'checkbox'} id={'current-education'} />
-//       ) : (
-//         <p>{dateEndValue}</p>
-//       )}
