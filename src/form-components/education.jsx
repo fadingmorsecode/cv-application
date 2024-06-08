@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { useEffect } from 'react';
 
 function EducationInput({ type, id, value, onChange, checked }) {
   return (
@@ -25,7 +26,7 @@ function DeleteButton({ onClick }) {
   return <button onClick={onClick}>Delete</button>;
 }
 
-function CreateEducationComponent({ id, onClick }) {
+function CreateEducationComponent({ id, onClick, updateComponent }) {
   const [editStatus, setEditStatus] = useState(false);
   const [schoolValue, setSchoolValue] = useState('');
   const [degreeValue, setDegreeValue] = useState('');
@@ -39,6 +40,14 @@ function CreateEducationComponent({ id, onClick }) {
 
   function SaveButtonHandler() {
     setEditStatus(false);
+    updateComponent(
+      id,
+      schoolValue,
+      degreeValue,
+      schoolDateStartValue,
+      schoolDateEndValue,
+      currentAttendance
+    );
   }
 
   function handleSchoolChange(e) {
@@ -138,13 +147,42 @@ function CreateEducationButton({ onClick }) {
   return <button onClick={onClick}>Add Education </button>;
 }
 
-export default function EducationalInfo() {
+export default function EducationalInfo({ handleEducationalData }) {
   const [components, setComponents] = useState([]);
 
   function handleCreateEducationButton(e) {
     e.preventDefault();
     setComponents([...components, { id: uuidv4() }]);
   }
+
+  function updateComponent(
+    id,
+    schoolVal,
+    degreeVal,
+    eduDateStartVal,
+    eduDateEndVal,
+    currentEducational
+  ) {
+    setComponents(
+      components.map((component) => {
+        if (component.id === id) {
+          return {
+            ...component,
+            school: schoolVal,
+            degree: degreeVal,
+            start: eduDateStartVal,
+            end: eduDateEndVal,
+            current: currentEducational,
+          };
+        }
+        return component;
+      })
+    );
+  }
+
+  useEffect(() => {
+    handleEducationalData(components);
+  }, [components, handleEducationalData]);
 
   function handleDeleteButton(id) {
     console.log(id);
@@ -160,6 +198,7 @@ export default function EducationalInfo() {
       key={component.id}
       id={component.id}
       onClick={handleDeleteButton}
+      updateComponent={updateComponent}
     />
   ));
 

@@ -9,10 +9,16 @@ export default function FormBuilder() {
 
   const [generalData, setGeneralData] = useState({});
 
+  const [educationalData, setEducationalData] = useState([]);
+
   const [practicalData, setPracticalData] = useState([]);
 
   function handleGeneralData(data) {
     setGeneralData(data);
+  }
+
+  function handleEducationalData(data) {
+    setEducationalData(data);
   }
 
   function handlePracticalData(data) {
@@ -24,13 +30,17 @@ export default function FormBuilder() {
   }
 
   function getAllData() {
-    return { generalData: generalData, practicalData: practicalData };
+    return {
+      generalData: generalData,
+      educationalData: educationalData,
+      practicalData: practicalData,
+    };
   }
 
   return !submitValue ? (
     <>
       <GeneralInfo handleGeneralData={handleGeneralData} />
-      <EducationalInfo />
+      <EducationalInfo handleEducationalData={handleEducationalData} />
       <PracticalInfo handlePracticalData={handlePracticalData} />
       <button onClick={handleSubmitClick}>Submit</button>
     </>
