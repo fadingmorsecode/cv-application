@@ -5,11 +5,19 @@ function CreateInput({ type, id, value, onChange }) {
 }
 
 function EditButton({ onClick }) {
-  return <button onClick={onClick}>Edit</button>;
+  return (
+    <button onClick={onClick} className='btn'>
+      Edit
+    </button>
+  );
 }
 
 function SaveButton({ onClick }) {
-  return <button onClick={onClick}>Save</button>;
+  return (
+    <button onClick={onClick} className='btn'>
+      Save
+    </button>
+  );
 }
 
 export default function GeneralInfo({ handleGeneralData }) {
@@ -48,52 +56,54 @@ export default function GeneralInfo({ handleGeneralData }) {
   }
 
   return (
-    <form>
-      <h1>General Information</h1>
-      <div className='name-container'>
-        <label htmlFor='gen-name'>Name:</label>
+    <>
+      <h1 className='generator-h1'>General Information</h1>
+      <form>
+        <div className='name-container'>
+          <label htmlFor='gen-name'>Name:</label>
+          {editStatus ? (
+            <CreateInput
+              type={'text'}
+              id={'gen-name'}
+              value={nameValue}
+              onChange={handleNameChange}
+            />
+          ) : (
+            <p>{nameValue}</p>
+          )}
+        </div>
+        <div className='email-container'>
+          <label htmlFor='gen-email'>Email:</label>
+          {editStatus ? (
+            <CreateInput
+              type={'email'}
+              id={'gen-email'}
+              value={emailValue}
+              onChange={handleEmailChange}
+            />
+          ) : (
+            <p>{emailValue}</p>
+          )}
+        </div>
+        <div className='phone-container'>
+          <label htmlFor='gen-phone'>Phone:</label>
+          {editStatus ? (
+            <CreateInput
+              type={'phone'}
+              id={'gen-phone'}
+              value={phoneValue}
+              onChange={handlePhoneChange}
+            />
+          ) : (
+            <p>{phoneValue}</p>
+          )}
+        </div>
         {editStatus ? (
-          <CreateInput
-            type={'text'}
-            id={'gen-name'}
-            value={nameValue}
-            onChange={handleNameChange}
-          />
+          <SaveButton onClick={SaveButtonHandler} />
         ) : (
-          <p>{nameValue}</p>
+          <EditButton onClick={EditButtonHandler} />
         )}
-      </div>
-      <div className='email-container'>
-        <label htmlFor='gen-email'>Email:</label>
-        {editStatus ? (
-          <CreateInput
-            type={'email'}
-            id={'gen-email'}
-            value={emailValue}
-            onChange={handleEmailChange}
-          />
-        ) : (
-          <p>{emailValue}</p>
-        )}
-      </div>
-      <div className='phone-container'>
-        <label htmlFor='gen-phone'>Phone:</label>
-        {editStatus ? (
-          <CreateInput
-            type={'phone'}
-            id={'gen-phone'}
-            value={phoneValue}
-            onChange={handlePhoneChange}
-          />
-        ) : (
-          <p>{phoneValue}</p>
-        )}
-      </div>
-      {editStatus ? (
-        <SaveButton onClick={SaveButtonHandler} />
-      ) : (
-        <EditButton onClick={EditButtonHandler} />
-      )}
-    </form>
+      </form>
+    </>
   );
 }

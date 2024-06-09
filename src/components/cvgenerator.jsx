@@ -2,6 +2,7 @@ import EducationalInfo from './form-components/education.jsx';
 import GeneralInfo from './form-components/general.jsx';
 import PracticalInfo from './form-components/practical.jsx';
 import RenderCV from './rendercv.jsx';
+import '../styles/cvgenerator.css';
 import { useState } from 'react';
 
 export default function FormBuilder() {
@@ -30,12 +31,16 @@ export default function FormBuilder() {
   }
 
   return !submitValue ? (
-    <>
-      <GeneralInfo handleGeneralData={handleGeneralData} />
-      <EducationalInfo handleEducationalData={handleEducationalData} />
-      <PracticalInfo handlePracticalData={handlePracticalData} />
-      <button onClick={handleSubmitClick}>Submit</button>
-    </>
+    <div className='cv-gen-container'>
+      <div className='cv-forms-container'>
+        <GeneralInfo handleGeneralData={handleGeneralData} />
+        <EducationalInfo handleEducationalData={handleEducationalData} />
+        <PracticalInfo handlePracticalData={handlePracticalData} />
+        <button onClick={handleSubmitClick} className='btn' id='submit-btn'>
+          Submit
+        </button>
+      </div>
+    </div>
   ) : (
     <RenderCV
       generalData={generalData}

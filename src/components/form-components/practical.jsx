@@ -14,15 +14,27 @@ function CreatePracticalInput({ type, id, value, onChange, checked }) {
 }
 
 function EditButton({ onClick }) {
-  return <button onClick={onClick}>Edit</button>;
+  return (
+    <button onClick={onClick} className='btn'>
+      Edit
+    </button>
+  );
 }
 
 function SaveButton({ onClick }) {
-  return <button onClick={onClick}>Save</button>;
+  return (
+    <button onClick={onClick} className='btn'>
+      Save
+    </button>
+  );
 }
 
 function DeleteButton({ onClick }) {
-  return <button onClick={onClick}>Delete</button>;
+  return (
+    <button onClick={onClick} className='btn'>
+      Delete
+    </button>
+  );
 }
 
 function CreatePracticalComponent({ id, componentDeletion, updateComponent }) {
@@ -79,90 +91,109 @@ function CreatePracticalComponent({ id, componentDeletion, updateComponent }) {
   }
 
   return (
-    <form>
-      <label>Company Title:</label>
-      {!editState ? (
-        <p>{companyValue}</p>
-      ) : (
-        <CreatePracticalInput
-          type={'text'}
-          id={'company-title'}
-          value={companyValue}
-          onChange={handleCompanyChange}
-        />
-      )}
-      <label>Position Title:</label>
-      {!editState ? (
-        <p>{positionValue}</p>
-      ) : (
-        <CreatePracticalInput
-          type={'text'}
-          id={'position-title'}
-          value={positionValue}
-          onChange={handlePositionChange}
-        />
-      )}
-      <label>Main Duties:</label>
-      {!editState ? (
-        <p>{dutiesValue}</p>
-      ) : (
-        <CreatePracticalInput
-          type={'text'}
-          id={'main-duties'}
-          value={dutiesValue}
-          onChange={handleDutiesChange}
-        />
-      )}
-      <label>Start Date:</label>
-      {!editState ? (
-        <p>{practicalStartValue}</p>
-      ) : (
-        <CreatePracticalInput
-          type={'date'}
-          id={'start-date'}
-          value={practicalStartValue}
-          onChange={handleStartChange}
-        />
-      )}
-      <label>End Date:</label>
-      {!editState ? (
-        <p>{currentPractical ? 'Present' : practicalEndValue}</p>
-      ) : (
-        <>
-          {!currentPractical && (
-            <CreatePracticalInput
-              type={'date'}
-              id={'end-date'}
-              value={practicalEndValue}
-              onChange={handleEndChange}
-            />
-          )}
-          <label htmlFor='practical-checkbox'>Currently Work Here</label>
+    <form className='practical-form'>
+      <div className='form-groups'>
+        <label>Company Title:</label>
+        {!editState ? (
+          <p>{companyValue}</p>
+        ) : (
           <CreatePracticalInput
-            type={'checkbox'}
-            id={'practical-checkbox'}
-            checked={currentPractical}
-            onChange={handleMarkChange}
+            type={'text'}
+            id={'company-title'}
+            value={companyValue}
+            onChange={handleCompanyChange}
           />
-        </>
-      )}
-      {!editState ? (
-        <EditButton onClick={handleEditBtn} />
-      ) : (
-        <SaveButton onClick={handleSaveBtn} />
-      )}
-      <DeleteButton
-        onClick={(e) => {
-          e.preventDefault();
-          componentDeletion(id);
-        }}
-      />
+        )}
+      </div>
+      <div className='form-groups'>
+        <label>Position Title:</label>
+        {!editState ? (
+          <p>{positionValue}</p>
+        ) : (
+          <CreatePracticalInput
+            type={'text'}
+            id={'position-title'}
+            value={positionValue}
+            onChange={handlePositionChange}
+          />
+        )}
+      </div>
+      <div className='form-groups'>
+        <label>Main Duties:</label>
+        {!editState ? (
+          <p>{dutiesValue}</p>
+        ) : (
+          <CreatePracticalInput
+            type={'text'}
+            id={'main-duties'}
+            value={dutiesValue}
+            onChange={handleDutiesChange}
+          />
+        )}
+      </div>
+      <div className='form-groups'>
+        <label>Start Date:</label>
+        {!editState ? (
+          <p>{practicalStartValue}</p>
+        ) : (
+          <CreatePracticalInput
+            type={'date'}
+            id={'start-date'}
+            value={practicalStartValue}
+            onChange={handleStartChange}
+          />
+        )}
+      </div>
+      <div className='form-groups'>
+        {!currentPractical && <label>End Date:</label>}
+        {currentPractical && !editState ? <label>End Date:</label> : ''}
+        {!editState ? (
+          <p>{currentPractical ? 'Present' : practicalEndValue}</p>
+        ) : (
+          <>
+            {!currentPractical && (
+              <CreatePracticalInput
+                type={'date'}
+                id={'end-date'}
+                value={practicalEndValue}
+                onChange={handleEndChange}
+              />
+            )}
+            <div className='current-groups'>
+              <label htmlFor='practical-checkbox'>Currently Work Here</label>
+              <CreatePracticalInput
+                type={'checkbox'}
+                id={'practical-checkbox'}
+                checked={currentPractical}
+                onChange={handleMarkChange}
+              />
+            </div>
+          </>
+        )}
+      </div>
+      <div className='btn-groups'>
+        {!editState ? (
+          <EditButton onClick={handleEditBtn} />
+        ) : (
+          <SaveButton onClick={handleSaveBtn} />
+        )}
+        <DeleteButton
+          onClick={(e) => {
+            e.preventDefault();
+            componentDeletion(id);
+          }}
+        />
+      </div>
     </form>
   );
 }
 
 function CreatePracticalButton({ onClick }) {
-  return <button onClick={onClick}>Add Experience</button>;
+  return (
+    <button onClick={onClick} className='btn' id='practical-add-btn'>
+      Add Experience
+    </button>
+  );
 }
 
 export default function PracticalInfo({ handlePracticalData }) {
@@ -219,8 +250,8 @@ export default function PracticalInfo({ handlePracticalData }) {
   });
 
   return (
-    <>
-      <h3>Practical Information</h3>
+    <div className='practical-container'>
+      <h3 className='practical-h3'>Practical Information</h3>
       {renderComponents}
       <CreatePracticalButton
         onClick={(e) => {
@@ -239,6 +270,6 @@ export default function PracticalInfo({ handlePracticalData }) {
           ]);
         }}
       />
-    </>
+    </div>
   );
 }

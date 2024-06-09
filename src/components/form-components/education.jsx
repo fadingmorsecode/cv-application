@@ -15,15 +15,27 @@ function EducationInput({ type, id, value, onChange, checked }) {
 }
 
 function EditButton({ onClick }) {
-  return <button onClick={onClick}>Edit</button>;
+  return (
+    <button onClick={onClick} className='btn'>
+      Edit
+    </button>
+  );
 }
 
 function SaveButton({ onClick }) {
-  return <button onClick={onClick}>Save</button>;
+  return (
+    <button onClick={onClick} className='btn'>
+      Save
+    </button>
+  );
 }
 
 function DeleteButton({ onClick }) {
-  return <button onClick={onClick}>Delete</button>;
+  return (
+    <button onClick={onClick} className='btn'>
+      Delete
+    </button>
+  );
 }
 
 function CreateEducationComponent({ id, onClick, updateComponent }) {
@@ -72,79 +84,96 @@ function CreateEducationComponent({ id, onClick, updateComponent }) {
   }
 
   return (
-    <form>
-      <label htmlFor='school-name'>School Name:</label>
-      {editStatus ? (
-        <EducationInput
-          type={'text'}
-          id={'school-name'}
-          value={schoolValue}
-          onChange={handleSchoolChange}
-        />
-      ) : (
-        <p>{schoolValue}</p>
-      )}
-      <label htmlFor='degree'>Degree:</label>
-      {editStatus ? (
-        <EducationInput
-          type={'text'}
-          id={'degree'}
-          value={degreeValue}
-          onChange={handleDegreeChange}
-        />
-      ) : (
-        <p>{degreeValue}</p>
-      )}
-      <label htmlFor='school-start'>Start Date:</label>
-      {editStatus ? (
-        <EducationInput
-          type={'date'}
-          id={'school-start'}
-          value={schoolDateStartValue}
-          onChange={handleDateStartChange}
-        />
-      ) : (
-        <p>{schoolDateStartValue}</p>
-      )}
-      <label htmlFor='school-end'>End Date:</label>
-      {editStatus ? (
-        <>
-          {!currentAttendance && (
-            <EducationInput
-              type={'date'}
-              id={'school-end'}
-              value={schoolDateEndValue}
-              onChange={handleDateEndChange}
-            />
-          )}
-          <label htmlFor='current-education'>Currently Attend</label>
+    <form className='education-form'>
+      <div className='form-groups'>
+        <label htmlFor='school-name'>School Name:</label>
+        {editStatus ? (
           <EducationInput
-            type={'checkbox'}
-            id={'current-education'}
-            onChange={currentAttendanceHandler}
-            checked={currentAttendance}
+            type={'text'}
+            id={'school-name'}
+            value={schoolValue}
+            onChange={handleSchoolChange}
           />
-        </>
-      ) : (
-        <p>{currentAttendance ? 'Present' : schoolDateEndValue}</p>
-      )}
-      {editStatus ? (
-        <SaveButton onClick={SaveButtonHandler} />
-      ) : (
-        <EditButton onClick={EditButtonHandler} />
-      )}
-      <DeleteButton
-        onClick={(e) => {
-          e.preventDefault();
-          onClick(id);
-        }}
-      />
+        ) : (
+          <p>{schoolValue}</p>
+        )}
+      </div>
+      <div className='form-groups'>
+        <label htmlFor='degree'>Degree:</label>
+        {editStatus ? (
+          <EducationInput
+            type={'text'}
+            id={'degree'}
+            value={degreeValue}
+            onChange={handleDegreeChange}
+          />
+        ) : (
+          <p>{degreeValue}</p>
+        )}
+      </div>
+      <div className='form-groups'>
+        <label htmlFor='school-start'>Start Date:</label>
+        {editStatus ? (
+          <EducationInput
+            type={'date'}
+            id={'school-start'}
+            value={schoolDateStartValue}
+            onChange={handleDateStartChange}
+          />
+        ) : (
+          <p>{schoolDateStartValue}</p>
+        )}
+      </div>
+      <div className='form-groups'>
+        {!currentAttendance && <label htmlFor='school-end'>End Date:</label>}
+        {currentAttendance && !editStatus ? <label>End Date:</label> : ''}
+        {editStatus ? (
+          <>
+            {!currentAttendance && (
+              <EducationInput
+                type={'date'}
+                id={'school-end'}
+                value={schoolDateEndValue}
+                onChange={handleDateEndChange}
+              />
+            )}
+            <div className='current-groups'>
+              <label htmlFor='current-education'>Currently Attend</label>
+              <EducationInput
+                type={'checkbox'}
+                id={'current-education'}
+                onChange={currentAttendanceHandler}
+                checked={currentAttendance}
+              />
+            </div>
+          </>
+        ) : (
+          <p>{currentAttendance ? 'Present' : schoolDateEndValue}</p>
+        )}
+      </div>
+      <div className='btn-groups'>
+        {editStatus ? (
+          <SaveButton onClick={SaveButtonHandler} />
+        ) : (
+          <EditButton onClick={EditButtonHandler} />
+        )}
+        <DeleteButton
+          onClick={(e) => {
+            e.preventDefault();
+            onClick(id);
+          }}
+        />
+      </div>
     </form>
   );
 }
 
 function CreateEducationButton({ onClick }) {
-  return <button onClick={onClick}>Add Education </button>;
+  return (
+    <button onClick={onClick} className='btn' id='edu-add-btn'>
+      Add Education
+    </button>
+  );
 }
 
 export default function EducationalInfo({ handleEducationalData }) {
@@ -206,10 +235,10 @@ export default function EducationalInfo({ handleEducationalData }) {
   ));
 
   return (
-    <>
-      <h2>Educational Information</h2>
+    <div className='edu-container'>
+      <h2 className='educational-h2'>Educational Information</h2>
       {renderComponents}
       <CreateEducationButton onClick={handleCreateEducationButton} />
-    </>
+    </div>
   );
 }
