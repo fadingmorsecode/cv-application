@@ -37,7 +37,7 @@ export default function FormBuilder() {
         <EducationalInfo handleEducationalData={handleEducationalData} />
         <PracticalInfo handlePracticalData={handlePracticalData} />
         <button onClick={handleSubmitClick} className='btn' id='submit-btn'>
-          Submit
+          Create
         </button>
       </div>
     </div>

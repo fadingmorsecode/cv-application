@@ -38,12 +38,12 @@ form label {
 
 form input {
   font-family: var(--poppins);
-  font-size: 0.8rem;
+  font-size: 1.2rem;
 }
 
 form p {
   font-family: var(--poppins);
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 .generator-h1,
@@ -95,7 +95,7 @@ form p {
 }
 
 #submit-btn {
-  width: 80px;
+  min-width: 80px;
   align-self: center;
   margin-top: 20px;
   margin-bottom: 20px;
