@@ -1,7 +1,7 @@
-import EducationalInfo from './form-components/education';
-import GeneralInfo from './form-components/general';
-import PracticalInfo from './form-components/practical';
-import RenderCV from './rendercv';
+import EducationalInfo from './form-components/education.jsx';
+import GeneralInfo from './form-components/general.jsx';
+import PracticalInfo from './form-components/practical.jsx';
+import RenderCV from './rendercv.jsx';
 import { useState } from 'react';
 
 export default function FormBuilder() {

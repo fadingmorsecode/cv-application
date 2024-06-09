@@ -1,0 +1,64 @@
+.cv-container {
+  padding: 2rem;
+}
+
+.general-heading {
+  font-family: var(--bebas);
+  font-size: 3rem;
+  line-height: normal;
+}
+
+.position-text,
+.degree-text {
+  font-family: var(--poppins);
+  font-weight: 500;
+}
+
+.blue-font {
+  color: #28afb0;
+}
+
+.section-container p {
+  font-family: var(--poppins);
+}
+
+.education-heading,
+.experience-heading {
+  margin-top: 1rem;
+  color: #f7a278;
+  font-family: var(--poppins);
+}
+
+.decorative-blue-line {
+  height: 3px;
+  width: 100%;
+  background-color: #28afb0;
+  margin-bottom: 0.5rem;
+}
+
+.date-container {
+  display: flex;
+  gap: 5px;
+}
+
+.decorative-grey-line {
+  height: 1px;
+  width: 100%;
+  border-top: dashed grey 3px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 500px) {
+  .cv-container {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .cv-container {
+    padding-left: 300px;
+    padding-right: 300px;
+  }
+}

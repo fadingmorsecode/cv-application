@@ -1,3 +1,5 @@
+import '../styles/rendercv.css';
+
 export default function RenderCV({
   generalData,
   educationalData,
@@ -6,11 +8,12 @@ export default function RenderCV({
   const renderEducational = educationalData.map((d) => {
     const length = educationalData.length;
     return (
-      <div key={d.id}>
-        <p>{d.degree}</p>
-        <p>{d.school}</p>
+      <div key={d.id} className='section-container'>
+        <p className='degree-text'>{d.degree}</p>
+        <p className='blue-font'>{d.school}</p>
         <div className='date-container'>
           <p>{d.start}</p>
+          <p>-</p>
           <p>{d.current ? 'Present' : d.end}</p>
         </div>
         {educationalData.indexOf(d) < length - 1 && (
@@ -23,11 +26,12 @@ export default function RenderCV({
   const renderPractical = practicalData.map((d) => {
     const length = practicalData.length;
     return (
-      <div key={d.id}>
-        <p>{d.position}</p>
-        <p>{d.company}</p>
+      <div key={d.id} className='section-container'>
+        <p className='position-text'>{d.position}</p>
+        <p className='blue-font'>{d.company}</p>
         <div className='date-container'>
           <p>{d.start}</p>
+          <p>-</p>
           <p>{d.current ? 'Present' : d.end}</p>
         </div>
         <p>{d.duties}</p>
@@ -39,18 +43,18 @@ export default function RenderCV({
   });
 
   return (
-    <>
-      <div>
-        <h1>{generalData.name}</h1>
+    <div className='cv-container'>
+      <div className='section-container'>
+        <h1 className='general-heading'>{generalData.name}</h1>
         <p>{generalData.phone}</p>
         <p>{generalData.email}</p>
       </div>
-      <h2>Experience</h2>
+      <h2 className='experience-heading'>Experience</h2>
       <div className='decorative-blue-line'></div>
       {renderPractical}
-      <h2>Education</h2>
+      <h2 className='education-heading'>Education</h2>
       <div className='decorative-blue-line'></div>
       {renderEducational}
-    </>
+    </div>
   );
 }
