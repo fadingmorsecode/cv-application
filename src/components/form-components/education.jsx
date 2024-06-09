@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect } from 'react';
+import formatDate from './format';
 
 function EducationInput({ type, id, value, onChange, checked }) {
   return (
@@ -121,7 +122,7 @@ function CreateEducationComponent({ id, onClick, updateComponent }) {
             onChange={handleDateStartChange}
           />
         ) : (
-          <p>{schoolDateStartValue}</p>
+          <p>{formatDate(schoolDateStartValue)}</p>
         )}
       </div>
       <div className='form-groups'>
@@ -148,7 +149,9 @@ function CreateEducationComponent({ id, onClick, updateComponent }) {
             </div>
           </>
         ) : (
-          <p>{currentAttendance ? 'Present' : schoolDateEndValue}</p>
+          <p>
+            {currentAttendance ? 'Present' : formatDate(schoolDateEndValue)}
+          </p>
         )}
       </div>
       <div className='btn-groups'>

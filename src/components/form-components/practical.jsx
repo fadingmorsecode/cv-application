@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import formatDate from './format';
 
 function CreatePracticalInput({ type, id, value, onChange, checked }) {
   return (
@@ -134,7 +135,7 @@ function CreatePracticalComponent({ id, componentDeletion, updateComponent }) {
       <div className='form-groups'>
         <label>Start Date:</label>
         {!editState ? (
-          <p>{practicalStartValue}</p>
+          <p>{formatDate(practicalStartValue)}</p>
         ) : (
           <CreatePracticalInput
             type={'date'}
@@ -148,7 +149,7 @@ function CreatePracticalComponent({ id, componentDeletion, updateComponent }) {
         {!currentPractical && <label>End Date:</label>}
         {currentPractical && !editState ? <label>End Date:</label> : ''}
         {!editState ? (
-          <p>{currentPractical ? 'Present' : practicalEndValue}</p>
+          <p>{currentPractical ? 'Present' : formatDate(practicalEndValue)}</p>
         ) : (
           <>
             {!currentPractical && (

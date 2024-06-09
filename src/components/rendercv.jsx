@@ -1,4 +1,5 @@
 import '../styles/rendercv.css';
+import formatDate from './form-components/format';
 
 export default function RenderCV({
   generalData,
@@ -12,9 +13,9 @@ export default function RenderCV({
         <p className='degree-text'>{d.degree}</p>
         <p className='blue-font'>{d.school}</p>
         <div className='date-container'>
-          <p>{d.start}</p>
+          <p>{formatDate(d.start)}</p>
           <p>-</p>
-          <p>{d.current ? 'Present' : d.end}</p>
+          <p>{d.current ? 'Present' : formatDate(d.end)}</p>
         </div>
         {educationalData.indexOf(d) < length - 1 && (
           <div className='decorative-grey-line'></div>
@@ -30,9 +31,9 @@ export default function RenderCV({
         <p className='position-text'>{d.position}</p>
         <p className='blue-font'>{d.company}</p>
         <div className='date-container'>
-          <p>{d.start}</p>
+          <p>{formatDate(d.start)}</p>
           <p>-</p>
-          <p>{d.current ? 'Present' : d.end}</p>
+          <p>{d.current ? 'Present' : formatDate(d.end)}</p>
         </div>
         <p>{d.duties}</p>
         {practicalData.indexOf(d) < length - 1 && (
