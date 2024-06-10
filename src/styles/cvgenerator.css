@@ -21,6 +21,18 @@ label.optional:after {
   margin-bottom: 2rem;
 }
 
+.error-text {
+  margin-bottom: 2rem;
+  color: red;
+  font-family: var(--poppins);
+  font-size: 1.3rem;
+  display: none;
+}
+
+.error-visible {
+  display: block;
+}
+
 .optional-paragraph {
   color: grey;
   font-family: var(--poppins);

@@ -52,20 +52,23 @@ export default function FormBuilder() {
   }
 
   function showError(error) {
-    alert(error);
+    const errorText = document.querySelector('.error-text');
+    errorText.textContent = error;
+    errorText.classList.add('error-visible');
+    errorText.scrollIntoView();
   }
 
   function handleSubmitClick() {
     if (!verifyGeneral()) {
-      return showError('Enter a name');
+      return showError('Missing name');
     }
     if (verifyArray(educationalData) === 'empty') {
-      return showError('Must have at least one educational entry');
+      return showError('Missing at least one educational entry');
     } else if (!verifyArray(educationalData)) {
       return showError('Educational Information missing required fields');
     }
     if (verifyArray(practicalData) === 'empty') {
-      return showError('Must have at least one practical entry');
+      return showError('Missing at least one practical entry');
     } else if (!verifyArray(practicalData)) {
       return showError('Practical Information missing required fields');
     }
@@ -75,6 +78,7 @@ export default function FormBuilder() {
   return !submitValue ? (
     <div className='cv-gen-container'>
       <header className='cv-main-heading'>CV GENERATOR</header>
+      <p className='error-text'></p>
       <p className='optional-paragraph'>
         <em>(All fields are required unless specified optional)</em>
       </p>
