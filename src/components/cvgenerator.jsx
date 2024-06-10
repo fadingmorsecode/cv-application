@@ -33,11 +33,11 @@ export default function FormBuilder() {
     return true;
   }
 
-  function verifyEducational() {
-    if (educationalData.length < 1) {
+  function verifyArray(array) {
+    if (array.length < 1) {
       return 'empty';
     }
-    const isValid = educationalData.every((obj) => {
+    const isValid = array.every((obj) => {
       return (
         obj.school !== '' &&
         obj.degree !== '' &&
@@ -59,16 +59,25 @@ export default function FormBuilder() {
     if (!verifyGeneral()) {
       return showError('Enter a name');
     }
-    if (verifyEducational() === 'empty') {
+    if (verifyArray(educationalData) === 'empty') {
       return showError('Must have at least one educational entry');
-    } else if (!verifyEducational()) {
+    } else if (!verifyArray(educationalData)) {
       return showError('Educational Information missing required fields');
+    }
+    if (verifyArray(practicalData) === 'empty') {
+      return showError('Must have at least one practical entry');
+    } else if (!verifyArray(practicalData)) {
+      return showError('Practical Information missing required fields');
     }
     setSubmitValue(true);
   }
 
   return !submitValue ? (
     <div className='cv-gen-container'>
+      <header className='cv-main-heading'>CV GENERATOR</header>
+      <p className='optional-paragraph'>
+        <em>(All fields are required unless specified optional)</em>
+      </p>
       <div className='cv-forms-container'>
         <GeneralInfo handleGeneralData={handleGeneralData} />
         <EducationalInfo handleEducationalData={handleEducationalData} />

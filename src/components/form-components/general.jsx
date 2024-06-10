@@ -73,7 +73,9 @@ export default function GeneralInfo({ handleGeneralData }) {
           )}
         </div>
         <div className='email-container'>
-          <label htmlFor='gen-email'>Email:</label>
+          <label htmlFor='gen-email' className='optional'>
+            Email:
+          </label>
           {editStatus ? (
             <CreateInput
               type={'email'}
@@ -86,7 +88,9 @@ export default function GeneralInfo({ handleGeneralData }) {
           )}
         </div>
         <div className='phone-container'>
-          <label htmlFor='gen-phone'>Phone:</label>
+          <label htmlFor='gen-phone' className='optional'>
+            Phone:
+          </label>
           {editStatus ? (
             <CreateInput
               type={'phone'}
