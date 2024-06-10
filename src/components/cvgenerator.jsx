@@ -26,7 +26,44 @@ export default function FormBuilder() {
     setPracticalData(data);
   }
 
+  function verifyGeneral() {
+    if (generalData.name === undefined) {
+      return false;
+    }
+    return true;
+  }
+
+  function verifyEducational() {
+    if (educationalData.length < 1) {
+      return 'empty';
+    }
+    const isValid = educationalData.every((obj) => {
+      return (
+        obj.school !== '' &&
+        obj.degree !== '' &&
+        obj.start !== '' &&
+        (obj.end !== '' || obj.current === true)
+      );
+    });
+    if (isValid) {
+      return true;
+    }
+    return false;
+  }
+
+  function showError(error) {
+    alert(error);
+  }
+
   function handleSubmitClick() {
+    if (!verifyGeneral()) {
+      return showError('Enter a name');
+    }
+    if (verifyEducational() === 'empty') {
+      return showError('Must have at least one educational entry');
+    } else if (!verifyEducational()) {
+      return showError('Educational Information missing required fields');
+    }
     setSubmitValue(true);
   }
 
