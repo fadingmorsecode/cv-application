@@ -79,7 +79,7 @@ export default function FormBuilder() {
     <div className='cv-gen-container'>
       <header className='cv-main-heading'>CV GENERATOR</header>
       <p className='error-text'></p>
-      <p className='optional-paragraph'>
+      <p className='optional-paragraph' tabIndex={-1}>
         <em>(All fields are required unless specified optional)</em>
       </p>
       <div className='cv-forms-container'>
